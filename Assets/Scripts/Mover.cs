@@ -9,7 +9,7 @@ public class Mover : MonoBehaviour
 
 	[SerializeField] Transform _target;
 
-	Ray _lastRay;
+	NavMeshAgent _navAgent;
 
 	#endregion
 
@@ -17,18 +17,15 @@ public class Mover : MonoBehaviour
 
 	void Start() 
 	{
-		
+		_navAgent = GetComponent<NavMeshAgent>();
 	}
 	
 	void Update() 
 	{
 		if (Input.GetMouseButtonDown(0))
 		{
-			_lastRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+			MoveToCursor();
 		}
-		Debug.DrawRay(_lastRay.origin, _lastRay.direction * 100);
-
-		GetComponent<NavMeshAgent>().destination = _target.position;
 	}
 	#endregion
 
@@ -39,6 +36,17 @@ public class Mover : MonoBehaviour
 
 	#region Private Methods
 
+	void MoveToCursor()
+	{
+		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		RaycastHit hit;
 
+		bool hasHit = Physics.Raycast(ray, out hit);
+
+		if (hasHit)
+		{
+			_navAgent.destination = hit.point;
+		}
+	}
 	#endregion
 }
