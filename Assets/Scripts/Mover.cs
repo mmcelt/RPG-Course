@@ -9,6 +9,8 @@ public class Mover : MonoBehaviour
 
 	[SerializeField] Transform _target;
 
+	Ray _lastRay;
+
 	#endregion
 
 	#region MonoBehaviour Methods
@@ -20,6 +22,12 @@ public class Mover : MonoBehaviour
 	
 	void Update() 
 	{
+		if (Input.GetMouseButtonDown(0))
+		{
+			_lastRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+		}
+		Debug.DrawRay(_lastRay.origin, _lastRay.direction * 100);
+
 		GetComponent<NavMeshAgent>().destination = _target.position;
 	}
 	#endregion
