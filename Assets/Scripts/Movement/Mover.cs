@@ -24,34 +24,19 @@ public class Mover : MonoBehaviour
 	
 	void Update() 
 	{
-		if (Input.GetMouseButton(0))
-		{
-			MoveToCursor();
-		}
-
 		UpdateAnimator();
 	}
 	#endregion
 
 	#region Public Methods
 
-
+	public void MoveTo(Vector3 destination)
+	{
+		_navAgent.destination = destination;
+	}
 	#endregion
 
 	#region Private Methods
-
-	void MoveToCursor()
-	{
-		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-		RaycastHit hit;
-
-		bool hasHit = Physics.Raycast(ray, out hit);
-
-		if (hasHit)
-		{
-			_navAgent.destination = hit.point;
-		}
-	}
 
 	void UpdateAnimator()
 	{
