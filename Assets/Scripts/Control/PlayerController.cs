@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using RPG.Movement;
+using RPG.Combat;
 
 namespace RPG.Control 
 {
@@ -10,6 +11,7 @@ namespace RPG.Control
 		#region Fields
 
 		Mover _mover;
+		Fighter _fighter;
 
 		#endregion
 
@@ -18,15 +20,15 @@ namespace RPG.Control
 		void Start()
 		{
 			_mover = GetComponent<Mover>();
+			_fighter = GetComponent<Fighter>();
 		}
 
 		void Update()
 		{
-			if (Input.GetMouseButton(0))
-			{
-				MoveToCursor();
-			}
+			InteractWithCombat();
+			InteractWithMovement();
 		}
+
 		#endregion
 
 		#region Public Methods
@@ -36,17 +38,44 @@ namespace RPG.Control
 
 		#region Private Methods
 
+		void InteractWithMovement()
+		{
+			if (Input.GetMouseButton(0))
+			{
+				MoveToCursor();
+			}
+		}
+
+		void InteractWithCombat()
+		{
+			RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
+
+			foreach(RaycastHit hit in hits)
+			{
+				CombatTarget target = hit.transform.GetComponent<CombatTarget>();
+				if (!target) continue;
+
+				if (Input.GetMouseButtonDown(0))
+				{
+					_fighter.Attack(target);
+				}
+			}
+		}
+
 		void MoveToCursor()
 		{
-			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
-
-			bool hasHit = Physics.Raycast(ray, out hit);
+			bool hasHit = Physics.Raycast(GetMouseRay(), out hit);
 
 			if (hasHit)
 			{
 				_mover.MoveTo(hit.point);
 			}
+		}
+
+		static Ray GetMouseRay()
+		{
+			return Camera.main.ScreenPointToRay(Input.mousePosition);
 		}
 		#endregion
 	}
