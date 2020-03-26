@@ -25,8 +25,10 @@ namespace RPG.Control
 
 		void Update()
 		{
-			InteractWithCombat();
-			InteractWithMovement();
+			if (InteractWithCombat()) return;
+			if (InteractWithMovement()) return;
+
+			print("Nothing to Do...");
 		}
 
 		#endregion
@@ -38,15 +40,7 @@ namespace RPG.Control
 
 		#region Private Methods
 
-		void InteractWithMovement()
-		{
-			if (Input.GetMouseButton(0))
-			{
-				MoveToCursor();
-			}
-		}
-
-		void InteractWithCombat()
+		bool InteractWithCombat()
 		{
 			RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
 
@@ -59,18 +53,25 @@ namespace RPG.Control
 				{
 					_fighter.Attack(target);
 				}
+				return true;
 			}
+			return false;
 		}
 
-		void MoveToCursor()
+		bool InteractWithMovement()
 		{
 			RaycastHit hit;
 			bool hasHit = Physics.Raycast(GetMouseRay(), out hit);
 
 			if (hasHit)
 			{
-				_mover.MoveTo(hit.point);
+				if (Input.GetMouseButton(0))
+				{
+					_mover.MoveTo(hit.point);
+				}
+				return true;
 			}
+			return false;
 		}
 
 		static Ray GetMouseRay()
