@@ -28,14 +28,13 @@ namespace RPG.Combat
 
 		void Update()
 		{
-			if(_target != null)
-				_isInRange = Vector3.Distance(transform.position, _target.position) < _weaponRange;
+			if (_target == null) return;
 
-			if (_target != null && !_isInRange)
+			if (!GetIsInRange())
 			{
 				_mover.MoveTo(_target.position);
 			}
-			else if(_target != null && _isInRange)
+			else
 			{
 				_mover.Stop();
 			}
@@ -48,11 +47,19 @@ namespace RPG.Combat
 		{
 			_target = combatTarget.transform;
 		}
+
+		public void CancelAttack()
+		{
+			_target = null;
+		}
 		#endregion
 
 		#region Private Methods
 
-
+		bool GetIsInRange()
+		{
+			return Vector3.Distance(transform.position, _target.position) < _weaponRange;
+		}
 		#endregion
 	}
 }

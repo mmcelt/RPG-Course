@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using RPG.Combat;
 
 namespace RPG.Movement
 {
@@ -13,6 +14,7 @@ namespace RPG.Movement
 
 		NavMeshAgent _navAgent;
 		Animator _anim;
+		Fighter _fighter;
 
 		#endregion
 
@@ -22,6 +24,7 @@ namespace RPG.Movement
 		{
 			_navAgent = GetComponent<NavMeshAgent>();
 			_anim = GetComponent<Animator>();
+			_fighter = GetComponent<Fighter>();
 		}
 
 		void Update()
@@ -31,6 +34,12 @@ namespace RPG.Movement
 		#endregion
 
 		#region Public Methods
+
+		public void StartMoveAction(Vector3 destination)
+		{
+			_fighter.CancelAttack();
+			MoveTo(destination);
+		}
 
 		public void MoveTo(Vector3 destination)
 		{
