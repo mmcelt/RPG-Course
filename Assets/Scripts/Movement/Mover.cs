@@ -35,6 +35,12 @@ namespace RPG.Movement
 		public void MoveTo(Vector3 destination)
 		{
 			_navAgent.destination = destination;
+			_navAgent.isStopped = false;
+		}
+
+		public void Stop()
+		{
+			_navAgent.isStopped = true;
 		}
 		#endregion
 
