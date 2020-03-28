@@ -16,6 +16,7 @@ namespace RPG.Combat
 		Transform _target;
 		Mover _mover;
 		ActionScheduler _scheduler;
+		Animator _anim;
 
 		bool _isInRange;
 
@@ -27,6 +28,7 @@ namespace RPG.Combat
 		{
 			_mover = GetComponent<Mover>();
 			_scheduler = GetComponent<ActionScheduler>();
+			_anim = GetComponent<Animator>();
 		}
 
 		void Update()
