@@ -7,7 +7,7 @@ using RPG.Core;
 
 namespace RPG.Combat
 {
-	public class Fighter : MonoBehaviour
+	public class Fighter : MonoBehaviour, IAction
 	{
 		#region Fields
 
@@ -39,7 +39,7 @@ namespace RPG.Combat
 			}
 			else
 			{
-				_mover.Stop();
+				_mover.Cancel();
 			}
 		}
 		#endregion
@@ -55,6 +55,11 @@ namespace RPG.Combat
 		public void CancelAttack()
 		{
 			_target = null;
+		}
+
+		public void Cancel()
+		{
+			CancelAttack();
 		}
 		#endregion
 

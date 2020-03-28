@@ -8,7 +8,7 @@ namespace RPG.Core
 	{
 		#region Fields
 
-		MonoBehaviour _currentAction;
+		IAction _currentAction;
 
 		#endregion
 
@@ -27,15 +27,15 @@ namespace RPG.Core
 
 		#region Public Methods
 
-		public void StartAction(MonoBehaviour action)
+		public void StartAction(IAction action)
 		{
 			if (_currentAction == action) return;
 
-				if (_currentAction != null)
-				{
-					print("Cancelling Action: " + _currentAction);
-				}
-				_currentAction = action;
+			if (_currentAction != null)
+			{
+				_currentAction.Cancel();
+			}
+			_currentAction = action;
 		}
 		#endregion
 

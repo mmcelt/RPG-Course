@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using RPG.Combat;
 using RPG.Core;
 
 namespace RPG.Movement
 {
-	public class Mover : MonoBehaviour
+	public class Mover : MonoBehaviour, IAction
 	{
 		#region Fields
 
@@ -15,7 +14,6 @@ namespace RPG.Movement
 
 		NavMeshAgent _navAgent;
 		Animator _anim;
-		Fighter _fighter;
 		ActionScheduler _scheduler;
 
 		#endregion
@@ -26,7 +24,6 @@ namespace RPG.Movement
 		{
 			_navAgent = GetComponent<NavMeshAgent>();
 			_anim = GetComponent<Animator>();
-			_fighter = GetComponent<Fighter>();
 			_scheduler = GetComponent<ActionScheduler>();
 		}
 
@@ -41,7 +38,6 @@ namespace RPG.Movement
 		public void StartMoveAction(Vector3 destination)
 		{
 			_scheduler.StartAction(this);
-			_fighter.CancelAttack();
 			MoveTo(destination);
 		}
 
@@ -51,7 +47,7 @@ namespace RPG.Movement
 			_navAgent.isStopped = false;
 		}
 
-		public void Stop()
+		public void Cancel()
 		{
 			_navAgent.isStopped = true;
 		}
