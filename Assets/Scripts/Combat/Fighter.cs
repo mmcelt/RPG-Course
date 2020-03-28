@@ -42,7 +42,14 @@ namespace RPG.Combat
 			else
 			{
 				_mover.Cancel();
+				AttackBehaviour();
 			}
+		}
+
+		//Animation Event
+		void Hit()
+		{
+
 		}
 		#endregion
 
@@ -70,6 +77,11 @@ namespace RPG.Combat
 		bool GetIsInRange()
 		{
 			return Vector3.Distance(transform.position, _target.position) < _weaponRange;
+		}
+
+		void AttackBehaviour()
+		{
+			_anim.SetTrigger("Attack");
 		}
 		#endregion
 	}
