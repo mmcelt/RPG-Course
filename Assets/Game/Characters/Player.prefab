@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1960718578752277108}
   - component: {fileID: 6529837011135623578}
   - component: {fileID: 3426932825221148400}
+  - component: {fileID: 65021499951721145}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -114,6 +115,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc53e8ba6860fb142bbfd738dc035ac9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _weaponRange: 2
+--- !u!114 &65021499951721145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3401267042215158844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c5ddaef84704e4419a89fb9883eb16e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6981631448175791328
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -121,6 +135,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4042146496465163444}
     m_Modifications:
+    - target: {fileID: 133518, guid: 30cf93deff988e74e88a144bd2127c18, type: 3}
+      propertyPath: m_Name
+      value: Character_Knights_Soldier_01
+      objectReference: {fileID: 0}
     - target: {fileID: 417656, guid: 30cf93deff988e74e88a144bd2127c18, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -164,10 +182,6 @@ PrefabInstance:
     - target: {fileID: 417656, guid: 30cf93deff988e74e88a144bd2127c18, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 133518, guid: 30cf93deff988e74e88a144bd2127c18, type: 3}
-      propertyPath: m_Name
-      value: Character_Knights_Soldier_01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30cf93deff988e74e88a144bd2127c18, type: 3}

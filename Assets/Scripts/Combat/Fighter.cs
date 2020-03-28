@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using RPG.Movement;
+using RPG.Core;
 
 namespace RPG.Combat
 {
@@ -14,6 +15,7 @@ namespace RPG.Combat
 
 		Transform _target;
 		Mover _mover;
+		ActionScheduler _scheduler;
 
 		bool _isInRange;
 
@@ -24,6 +26,7 @@ namespace RPG.Combat
 		void Start()
 		{
 			_mover = GetComponent<Mover>();
+			_scheduler = GetComponent<ActionScheduler>();
 		}
 
 		void Update()
@@ -45,6 +48,7 @@ namespace RPG.Combat
 
 		public void Attack(CombatTarget combatTarget)
 		{
+			_scheduler.StartAction(this);
 			_target = combatTarget.transform;
 		}
 
