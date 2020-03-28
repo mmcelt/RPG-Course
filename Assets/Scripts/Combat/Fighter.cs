@@ -12,13 +12,14 @@ namespace RPG.Combat
 		#region Fields
 
 		[SerializeField] float _weaponRange = 2f;
+		[SerializeField] float _timeBetweenAttacks = 1f;
 
 		Transform _target;
 		Mover _mover;
 		ActionScheduler _scheduler;
 		Animator _anim;
 
-		bool _isInRange;
+		float _timeSinceLastAttack;
 
 		#endregion
 
@@ -33,6 +34,8 @@ namespace RPG.Combat
 
 		void Update()
 		{
+			_timeSinceLastAttack += Time.deltaTime;
+
 			if (_target == null) return;
 
 			if (!GetIsInRange())
@@ -81,7 +84,11 @@ namespace RPG.Combat
 
 		void AttackBehaviour()
 		{
-			_anim.SetTrigger("Attack");
+			if(_timeSinceLastAttack >= _timeBetweenAttacks)
+			{
+				_anim.SetTrigger("Attack");
+				_timeSinceLastAttack = 0;
+			}
 		}
 		#endregion
 	}
