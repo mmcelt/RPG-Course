@@ -14,10 +14,13 @@ namespace RPG.Combat
 		[SerializeField] float _weaponRange = 2f;
 		[SerializeField] float _timeBetweenAttacks = 1f;
 
+		[SerializeField] float _weaponDamage = 5f;
+
 		Transform _target;
 		Mover _mover;
 		ActionScheduler _scheduler;
 		Animator _anim;
+		Health _health;
 
 		float _timeSinceLastAttack;
 
@@ -48,12 +51,6 @@ namespace RPG.Combat
 				AttackBehaviour();
 			}
 		}
-
-		//Animation Event
-		void Hit()
-		{
-
-		}
 		#endregion
 
 		#region Public Methods
@@ -62,6 +59,7 @@ namespace RPG.Combat
 		{
 			_scheduler.StartAction(this);
 			_target = combatTarget.transform;
+			_health = _target.GetComponent<Health>();
 		}
 
 		public void CancelAttack()
@@ -86,8 +84,25 @@ namespace RPG.Combat
 		{
 			if(_timeSinceLastAttack >= _timeBetweenAttacks)
 			{
+				//this will trigger the Hit() event
 				_anim.SetTrigger("Attack");
 				_timeSinceLastAttack = 0;
+			}
+		}
+
+		//Animation Event
+		void Hit()
+		{
+			DealDamage(_weaponDamage);
+		}
+
+		void DealDamage(float damage)
+		{
+			if (_health)
+			{
+				_health.TakeDamage(damage);
+
+				//TODO: stop attack when target is dead...
 			}
 		}
 		#endregion
