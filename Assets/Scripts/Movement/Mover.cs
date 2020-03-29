@@ -60,7 +60,7 @@ namespace RPG.Movement
 			Vector3 velocity = _navAgent.velocity;
 			Vector3 localVelocity = transform.InverseTransformDirection(velocity);
 			float speed = localVelocity.z;
-			_anim.SetFloat("ForwardSpeed", speed);
+			_anim.SetFloat("forwardSpeed", speed);
 		}
 		#endregion
 	}

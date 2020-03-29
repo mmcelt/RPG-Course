@@ -8,7 +8,11 @@ namespace RPG.Combat
 	{
 		#region Fields
 
-		[SerializeField] float _health = 100f;
+		[SerializeField] float _healthPoints = 100f;
+
+		public float CurrentHealth => _healthPoints;
+
+		public bool IsDead { get; set; }
 
 		#endregion
 
@@ -30,14 +34,24 @@ namespace RPG.Combat
 		public void TakeDamage(float damage)
 		{
 			//ensures health >= 0
-			_health = Mathf.Max(_health - damage, 0);
-			print(_health);
+			_healthPoints = Mathf.Max(_healthPoints - damage, 0);
+
+			print(_healthPoints);
+
+			if(_healthPoints == 0 && !IsDead)
+			{
+				Die();
+			}
 		}
 		#endregion
 
 		#region Private Methods
 
-
+		void Die()
+		{
+			GetComponent<Animator>().SetTrigger("die");
+			IsDead = true;
+		}
 		#endregion
 	}
 }

@@ -85,7 +85,7 @@ namespace RPG.Combat
 			if(_timeSinceLastAttack >= _timeBetweenAttacks)
 			{
 				//this will trigger the Hit() event
-				_anim.SetTrigger("Attack");
+				_anim.SetTrigger("attack");
 				_timeSinceLastAttack = 0;
 			}
 		}
@@ -103,6 +103,10 @@ namespace RPG.Combat
 				_health.TakeDamage(damage);
 
 				//TODO: stop attack when target is dead...
+				if(_health.IsDead)
+				{
+					Cancel();
+				}
 			}
 		}
 		#endregion
