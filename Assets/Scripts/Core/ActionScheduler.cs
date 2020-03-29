@@ -18,11 +18,6 @@ namespace RPG.Core
 		{
 			_currentAction = null;
 		}
-
-		void Update()
-		{
-
-		}
 		#endregion
 
 		#region Public Methods

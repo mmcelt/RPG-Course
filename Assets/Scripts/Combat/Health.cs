@@ -12,7 +12,7 @@ namespace RPG.Combat
 
 		public float CurrentHealth => _healthPoints;
 
-		public bool IsDead { get; set; }
+		public bool IsDead { get; private set; }
 
 		#endregion
 

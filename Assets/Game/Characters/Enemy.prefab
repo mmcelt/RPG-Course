@@ -98,7 +98,7 @@ PrefabInstance:
     - target: {fileID: 4042146496465163444, guid: 1f05f99aba90fc541a821314523c6388,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.67
       objectReference: {fileID: 0}
     - target: {fileID: 4042146496465163444, guid: 1f05f99aba90fc541a821314523c6388,
         type: 3}
@@ -108,27 +108,27 @@ PrefabInstance:
     - target: {fileID: 4042146496465163444, guid: 1f05f99aba90fc541a821314523c6388,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 3.68
       objectReference: {fileID: 0}
     - target: {fileID: 4042146496465163444, guid: 1f05f99aba90fc541a821314523c6388,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4042146496465163444, guid: 1f05f99aba90fc541a821314523c6388,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.9800069
       objectReference: {fileID: 0}
     - target: {fileID: 4042146496465163444, guid: 1f05f99aba90fc541a821314523c6388,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4042146496465163444, guid: 1f05f99aba90fc541a821314523c6388,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: -0.19896352
       objectReference: {fileID: 0}
     - target: {fileID: 4042146496465163444, guid: 1f05f99aba90fc541a821314523c6388,
         type: 3}
@@ -143,21 +143,16 @@ PrefabInstance:
     - target: {fileID: 4042146496465163444, guid: 1f05f99aba90fc541a821314523c6388,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 202.95299
       objectReference: {fileID: 0}
     - target: {fileID: 4042146496465163444, guid: 1f05f99aba90fc541a821314523c6388,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6529837011135623578, guid: 1f05f99aba90fc541a821314523c6388,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8692253784873843405, guid: 1f05f99aba90fc541a821314523c6388,
         type: 3}
-      propertyPath: _health
+      propertyPath: _healthPoints
       value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []

@@ -16,11 +16,10 @@ namespace RPG.Combat
 
 		[SerializeField] float _weaponDamage = 5f;
 
-		Transform _target;
+		Health _target;
 		Mover _mover;
 		ActionScheduler _scheduler;
 		Animator _anim;
-		Health _health;
 
 		float _timeSinceLastAttack;
 
@@ -39,11 +38,11 @@ namespace RPG.Combat
 		{
 			_timeSinceLastAttack += Time.deltaTime;
 
-			if (_target == null) return;
+			if (_target == null || _target.IsDead) return;
 
 			if (!GetIsInRange())
 			{
-				_mover.MoveTo(_target.position);
+				_mover.MoveTo(_target.transform.position);
 			}
 			else
 			{
@@ -58,12 +57,12 @@ namespace RPG.Combat
 		public void Attack(CombatTarget combatTarget)
 		{
 			_scheduler.StartAction(this);
-			_target = combatTarget.transform;
-			_health = _target.GetComponent<Health>();
+			_target = combatTarget.GetComponent<Health>();
 		}
 
 		public void CancelAttack()
 		{
+			GetComponent<Animator>().SetTrigger("stopAttack");
 			_target = null;
 		}
 
@@ -77,7 +76,7 @@ namespace RPG.Combat
 
 		bool GetIsInRange()
 		{
-			return Vector3.Distance(transform.position, _target.position) < _weaponRange;
+			return Vector3.Distance(transform.position, _target.transform.position) < _weaponRange;
 		}
 
 		void AttackBehaviour()
@@ -98,15 +97,9 @@ namespace RPG.Combat
 
 		void DealDamage(float damage)
 		{
-			if (_health)
+			if (_target)
 			{
-				_health.TakeDamage(damage);
-
-				//TODO: stop attack when target is dead...
-				if(_health.IsDead)
-				{
-					Cancel();
-				}
+				_target.TakeDamage(damage);
 			}
 		}
 		#endregion
