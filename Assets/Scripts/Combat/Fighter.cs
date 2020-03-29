@@ -62,7 +62,8 @@ namespace RPG.Combat
 
 		public void CancelAttack()
 		{
-			GetComponent<Animator>().SetTrigger("stopAttack");
+			_anim.ResetTrigger("attack");
+			_anim.SetTrigger("stopAttack");
 			_target = null;
 		}
 
@@ -94,9 +95,15 @@ namespace RPG.Combat
 			if (_timeSinceLastAttack >= _timeBetweenAttacks)
 			{
 				//this will trigger the Hit() event
-				_anim.SetTrigger("attack");
+				TriggerAttack();
 				_timeSinceLastAttack = 0;
 			}
+		}
+
+		void TriggerAttack()
+		{
+			_anim.ResetTrigger("stopAttack");
+			_anim.SetTrigger("attack");
 		}
 
 		//Animation Event
@@ -107,10 +114,9 @@ namespace RPG.Combat
 
 		void DealDamage(float damage)
 		{
-			if (_target)
-			{
-				_target.TakeDamage(damage);
-			}
+			if (!_target) return;
+
+			_target.TakeDamage(damage);
 		}
 		#endregion
 	}
