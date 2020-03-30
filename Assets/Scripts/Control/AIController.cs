@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RPG.Movement;
+using RPG.Combat;
 
 namespace RPG.Control
 {
@@ -12,6 +14,9 @@ namespace RPG.Control
 
 		GameObject _player;
 
+		Fighter _fighter;
+		//Mover _mover;
+
 		#endregion
 
 		#region MonoBehaviour Methods
@@ -19,19 +24,27 @@ namespace RPG.Control
 		void Start()
 		{
 			_player = GameObject.FindGameObjectWithTag("Player");
+			_fighter = GetComponent<Fighter>();
+			//_mover = GetComponent<Mover>();
 		}
 
 		void Update()
 		{
-			if (DistanceToPlayer() < _chaseDistance)
+			if (InAttackRangeOfPlayer() && _fighter.CanAttack(_player))
 			{
-				print(transform.name + " Sees the Player, I'll get him!");
+				//print(transform.name + " Sees the Player, I'll get him!");
+				_fighter.Attack(_player);
+			}
+			else
+			{
+				_fighter.Cancel();
 			}
 		}
 
-		float DistanceToPlayer()
+		bool InAttackRangeOfPlayer()
 		{
-			return Vector3.Distance(transform.position, _player.transform.position);
+			float distanceToPlayer = Vector3.Distance(transform.position, _player.transform.position);
+			return distanceToPlayer < _chaseDistance;
 		}
 		#endregion
 

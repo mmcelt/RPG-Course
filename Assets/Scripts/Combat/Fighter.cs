@@ -54,7 +54,7 @@ namespace RPG.Combat
 
 		#region Public Methods
 
-		public void Attack(CombatTarget combatTarget)
+		public void Attack(GameObject combatTarget)
 		{
 			_scheduler.StartAction(this);
 			_target = combatTarget.GetComponent<Health>();
@@ -72,7 +72,7 @@ namespace RPG.Combat
 			CancelAttack();
 		}
 
-		public bool CanAttack(CombatTarget combatTarget)
+		public bool CanAttack(GameObject combatTarget)
 		{
 			if (combatTarget == null) return false;
 
