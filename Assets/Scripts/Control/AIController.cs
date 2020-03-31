@@ -12,14 +12,17 @@ namespace RPG.Control
 		#region Fields
 
 		[SerializeField] float _chaseDistance = 5f;
+		[SerializeField] float _suspicionTime = 3f;
 
 		GameObject _player;
 
 		Fighter _fighter;
 		Health _health;
 		Mover _mover;
+		ActionScheduler _scheduler;
 
 		Vector3 _guardPosition;
+		float _timeSinceLastSawPlayer;
 
 		#endregion
 
@@ -31,7 +34,9 @@ namespace RPG.Control
 			_fighter = GetComponent<Fighter>();
 			_health = GetComponent<Health>();
 			_mover = GetComponent<Mover>();
+			_scheduler = GetComponent<ActionScheduler>();
 
+			_timeSinceLastSawPlayer = Mathf.Infinity;
 			_guardPosition = transform.position;
 		}
 
@@ -41,15 +46,21 @@ namespace RPG.Control
 
 			if (InAttackRangeOfPlayer() && _fighter.CanAttack(_player))
 			{
-				//print(transform.name + " Sees the Player, I'll get him!");
-				_fighter.Attack(_player);
+				_timeSinceLastSawPlayer = 0;
+				AttackBehavior();
+			}
+			else if (_timeSinceLastSawPlayer < _suspicionTime)
+			{
+				SuspicionBehavior();
 			}
 			else
 			{
-				ReturnToGuardPosition();
+				GuardBehavior();
 			}
+
+			_timeSinceLastSawPlayer += Time.deltaTime;
 		}
-		
+
 		void OnDrawGizmosSelected()
 		{
 			Gizmos.color = Color.red;
@@ -70,7 +81,17 @@ namespace RPG.Control
 			return distanceToPlayer < _chaseDistance;
 		}
 
-		void ReturnToGuardPosition()
+		void AttackBehavior()
+		{
+			_fighter.Attack(_player);
+		}
+
+		void SuspicionBehavior()
+		{
+			_scheduler.CancelCurrentAction();
+
+		}
+		void GuardBehavior()
 		{
 			_mover.StartMoveAction(_guardPosition);
 		}
