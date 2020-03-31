@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using RPG.Movement;
+using RPG.Core;
 using RPG.Combat;
 
 namespace RPG.Control
@@ -15,7 +15,7 @@ namespace RPG.Control
 		GameObject _player;
 
 		Fighter _fighter;
-		//Mover _mover;
+		Health _health;
 
 		#endregion
 
@@ -25,11 +25,13 @@ namespace RPG.Control
 		{
 			_player = GameObject.FindGameObjectWithTag("Player");
 			_fighter = GetComponent<Fighter>();
-			//_mover = GetComponent<Mover>();
+			_health = GetComponent<Health>();
 		}
 
 		void Update()
 		{
+			if (_health.IsDead) return;
+
 			if (InAttackRangeOfPlayer() && _fighter.CanAttack(_player))
 			{
 				//print(transform.name + " Sees the Player, I'll get him!");

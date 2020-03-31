@@ -29,6 +29,8 @@ namespace RPG.Combat
 
 		void Start()
 		{
+			_timeSinceLastAttack = Mathf.Infinity;
+
 			_mover = GetComponent<Mover>();
 			_scheduler = GetComponent<ActionScheduler>();
 			_anim = GetComponent<Animator>();

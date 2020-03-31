@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RPG.Movement;
 using RPG.Combat;
+using RPG.Core;
 
 namespace RPG.Control 
 {
@@ -12,6 +13,7 @@ namespace RPG.Control
 
 		Mover _mover;
 		Fighter _fighter;
+		Health _health;
 
 		#endregion
 
@@ -21,10 +23,12 @@ namespace RPG.Control
 		{
 			_mover = GetComponent<Mover>();
 			_fighter = GetComponent<Fighter>();
+			_health = GetComponent<Health>();
 		}
 
 		void Update()
 		{
+			if (_health.IsDead) return;
 			if (InteractWithCombat()) return;
 			if (InteractWithMovement()) return;
 
