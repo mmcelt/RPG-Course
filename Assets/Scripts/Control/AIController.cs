@@ -42,11 +42,11 @@ namespace RPG.Control
 				_fighter.Cancel();
 			}
 		}
-
-		bool InAttackRangeOfPlayer()
+		
+		void OnDrawGizmosSelected()
 		{
-			float distanceToPlayer = Vector3.Distance(transform.position, _player.transform.position);
-			return distanceToPlayer < _chaseDistance;
+			Gizmos.color = Color.red;
+			Gizmos.DrawWireSphere(transform.position, _chaseDistance);
 		}
 		#endregion
 
@@ -57,7 +57,11 @@ namespace RPG.Control
 
 		#region Private Methods
 
-
+		bool InAttackRangeOfPlayer()
+		{
+			float distanceToPlayer = Vector3.Distance(transform.position, _player.transform.position);
+			return distanceToPlayer < _chaseDistance;
+		}
 		#endregion
 	}
 }
