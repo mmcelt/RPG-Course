@@ -13,6 +13,8 @@ namespace RPG.Control
 
 		[SerializeField] float _chaseDistance = 5f;
 		[SerializeField] float _suspicionTime = 3f;
+		[SerializeField] PatrolPath _patrolPath;
+		[SerializeField] float _waypointTolerance = 0.5f;
 
 		GameObject _player;
 
@@ -23,6 +25,7 @@ namespace RPG.Control
 
 		Vector3 _guardPosition;
 		float _timeSinceLastSawPlayer;
+		int _currentWaypointIndex;
 
 		#endregion
 
@@ -55,7 +58,7 @@ namespace RPG.Control
 			}
 			else
 			{
-				GuardBehavior();
+				PatrolBehavior();
 			}
 
 			_timeSinceLastSawPlayer += Time.deltaTime;
@@ -91,9 +94,36 @@ namespace RPG.Control
 			_scheduler.CancelCurrentAction();
 
 		}
-		void GuardBehavior()
+
+		void PatrolBehavior()
 		{
-			_mover.StartMoveAction(_guardPosition);
+			Vector3 nextPosition = _guardPosition;
+
+			if(_patrolPath != null)
+			{
+				if (AtWaypoint())
+				{
+					CycleWaypoint();
+				}
+				nextPosition = GetCurrentWaypoint();
+			}
+			_mover.StartMoveAction(nextPosition);
+		}
+
+		bool AtWaypoint()
+		{
+			float distanceToWaypoint = Vector3.Distance(transform.position, GetCurrentWaypoint());
+			return distanceToWaypoint < _waypointTolerance;
+		}
+
+		void CycleWaypoint()
+		{
+			_currentWaypointIndex = _patrolPath.GetNextIndex(_currentWaypointIndex);
+		}
+
+		Vector3 GetCurrentWaypoint()
+		{
+			return _patrolPath.GetWaypoint(_currentWaypointIndex);
 		}
 		#endregion
 	}

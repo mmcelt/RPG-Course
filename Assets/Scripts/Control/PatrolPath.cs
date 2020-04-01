@@ -33,25 +33,25 @@ namespace RPG.Control
 
 		#region Public Methods
 
-
-		#endregion
-
-		#region Private Methods
-
-		Vector3 GetWaypoint(int i)
+		public Vector3 GetWaypoint(int i)
 		{
 			return transform.GetChild(i).transform.position;
 		}
 
-		int GetNextIndex(int i)
+		public int GetNextIndex(int i)
 		{
 			i++;
-			if(i == transform.childCount)
+			if (i == transform.childCount)
 			{
 				i = 0;
 			}
 			return i;
 		}
+		#endregion
+
+		#region Private Methods
+
+
 		#endregion
 	}
 }
