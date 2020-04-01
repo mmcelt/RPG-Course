@@ -23,9 +23,12 @@ namespace RPG.Control
 		{
 			for (int i = 0; i < transform.childCount; i++)
 			{
-				Gizmos.DrawSphere(transform.GetChild(i).transform.position, _waypointGizmoSize);
+				int j = GetNextIndex(i);
+				Gizmos.DrawSphere(GetWaypoint(i), _waypointGizmoSize);
+				Gizmos.DrawLine(GetWaypoint(i), GetWaypoint(j));
 			}
 		}
+
 		#endregion
 
 		#region Public Methods
@@ -35,7 +38,20 @@ namespace RPG.Control
 
 		#region Private Methods
 
+		Vector3 GetWaypoint(int i)
+		{
+			return transform.GetChild(i).transform.position;
+		}
 
+		int GetNextIndex(int i)
+		{
+			i++;
+			if(i == transform.childCount)
+			{
+				i = 0;
+			}
+			return i;
+		}
 		#endregion
 	}
 }
