@@ -42,6 +42,7 @@ MonoBehaviour:
   _suspicionTime: 5
   _patrolPath: {fileID: 0}
   _waypointTolerance: 0.5
+  _waypointWaitTime: 2
 --- !u!1001 &1184358267764122507
 PrefabInstance:
   m_ObjectHideFlags: 0

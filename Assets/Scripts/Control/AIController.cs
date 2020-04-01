@@ -15,6 +15,7 @@ namespace RPG.Control
 		[SerializeField] float _suspicionTime = 3f;
 		[SerializeField] PatrolPath _patrolPath;
 		[SerializeField] float _waypointTolerance = 0.5f;
+		[SerializeField] float _waypointWaitTime = 1f;
 
 		GameObject _player;
 
@@ -26,6 +27,7 @@ namespace RPG.Control
 		Vector3 _guardPosition;
 		float _timeSinceLastSawPlayer;
 		int _currentWaypointIndex;
+		float _timeSinceArrivedAtWaypoint;
 
 		#endregion
 
@@ -40,6 +42,7 @@ namespace RPG.Control
 			_scheduler = GetComponent<ActionScheduler>();
 
 			_timeSinceLastSawPlayer = Mathf.Infinity;
+			_timeSinceArrivedAtWaypoint = Mathf.Infinity;
 			_guardPosition = transform.position;
 		}
 
@@ -49,7 +52,6 @@ namespace RPG.Control
 
 			if (InAttackRangeOfPlayer() && _fighter.CanAttack(_player))
 			{
-				_timeSinceLastSawPlayer = 0;
 				AttackBehavior();
 			}
 			else if (_timeSinceLastSawPlayer < _suspicionTime)
@@ -61,7 +63,7 @@ namespace RPG.Control
 				PatrolBehavior();
 			}
 
-			_timeSinceLastSawPlayer += Time.deltaTime;
+			UpdateTimers();
 		}
 
 		void OnDrawGizmosSelected()
@@ -73,10 +75,15 @@ namespace RPG.Control
 
 		#region Public Methods
 
-
 		#endregion
 
 		#region Private Methods
+
+		void UpdateTimers()
+		{
+			_timeSinceLastSawPlayer += Time.deltaTime;
+			_timeSinceArrivedAtWaypoint += Time.deltaTime;
+		}
 
 		bool InAttackRangeOfPlayer()
 		{
@@ -86,6 +93,7 @@ namespace RPG.Control
 
 		void AttackBehavior()
 		{
+			_timeSinceLastSawPlayer = 0;
 			_fighter.Attack(_player);
 		}
 
@@ -103,11 +111,13 @@ namespace RPG.Control
 			{
 				if (AtWaypoint())
 				{
+					_timeSinceArrivedAtWaypoint = 0;
 					CycleWaypoint();
 				}
 				nextPosition = GetCurrentWaypoint();
 			}
-			_mover.StartMoveAction(nextPosition);
+			if (_timeSinceArrivedAtWaypoint > _waypointWaitTime)
+				_mover.StartMoveAction(nextPosition);
 		}
 
 		bool AtWaypoint()
