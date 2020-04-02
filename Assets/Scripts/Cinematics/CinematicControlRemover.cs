@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
+using RPG.Core;
+using RPG.Control;
 
 namespace RPG.Cinematics
 {
@@ -11,6 +13,7 @@ namespace RPG.Cinematics
 		#region Fields
 
 		PlayableDirector _director;
+		GameObject _player;
 
 		#endregion
 
@@ -18,6 +21,7 @@ namespace RPG.Cinematics
 
 		void OnEnable()
 		{
+			_player = GameObject.FindWithTag("Player");
 			_director = GetComponent<PlayableDirector>();
 			_director.played += DisableControl;
 			_director.stopped += EnableControl;
@@ -39,12 +43,13 @@ namespace RPG.Cinematics
 
 		void DisableControl(PlayableDirector pd)
 		{
-			print("DisableControl called");
+			_player.GetComponent<ActionScheduler>().CancelCurrentAction();
+			_player.GetComponent<PlayerController>().enabled = false;
 		}
 
 		void EnableControl(PlayableDirector pd)
 		{
-			print("EnableControl called");
+			_player.GetComponent<PlayerController>().enabled = true;
 		}
 		#endregion
 	}
