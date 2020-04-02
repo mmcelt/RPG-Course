@@ -11,6 +11,7 @@ namespace RPG.Movement
 		#region Fields
 
 		[SerializeField] Transform _target;
+		[Range(0,10)] [SerializeField] float _maxSpeed = 6f;
 
 		NavMeshAgent _navAgent;
 		Animator _anim;
@@ -38,15 +39,16 @@ namespace RPG.Movement
 
 		#region Public Methods
 
-		public void StartMoveAction(Vector3 destination)
+		public void StartMoveAction(Vector3 destination, float speedFraction)
 		{
 			_scheduler.StartAction(this);
-			MoveTo(destination);
+			MoveTo(destination, speedFraction);
 		}
 
-		public void MoveTo(Vector3 destination)
+		public void MoveTo(Vector3 destination, float speedFraction)
 		{
 			_navAgent.destination = destination;
+			_navAgent.speed = _maxSpeed * Mathf.Clamp(speedFraction, 0, 1);
 			_navAgent.isStopped = false;
 		}
 

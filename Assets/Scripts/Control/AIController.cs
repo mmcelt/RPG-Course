@@ -4,6 +4,7 @@ using UnityEngine;
 using RPG.Core;
 using RPG.Combat;
 using RPG.Movement;
+using UnityEngine.AI;
 
 namespace RPG.Control
 {
@@ -16,6 +17,7 @@ namespace RPG.Control
 		[SerializeField] PatrolPath _patrolPath;
 		[SerializeField] float _waypointTolerance = 0.5f;
 		[SerializeField] float _waypointWaitTime = 1f;
+		[Range(0,1)] [SerializeField] float _patrolSpeedFraction = 0.2f;
 
 		GameObject _player;
 
@@ -100,7 +102,6 @@ namespace RPG.Control
 		void SuspicionBehavior()
 		{
 			_scheduler.CancelCurrentAction();
-
 		}
 
 		void PatrolBehavior()
@@ -117,7 +118,7 @@ namespace RPG.Control
 				nextPosition = GetCurrentWaypoint();
 			}
 			if (_timeSinceArrivedAtWaypoint > _waypointWaitTime)
-				_mover.StartMoveAction(nextPosition);
+				_mover.StartMoveAction(nextPosition, _patrolSpeedFraction);
 		}
 
 		bool AtWaypoint()
