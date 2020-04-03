@@ -17,14 +17,14 @@ namespace RPG.SceneManagement
 
 		void Start()
 		{
-
+			
 		}
 
 		void OnTriggerEnter(Collider other)
 		{
 			if (other.CompareTag("Player"))
 			{
-				SceneManager.LoadScene(_sceneToLoadIndex);
+				StartCoroutine(Transition());
 			}
 		}
 		#endregion
@@ -36,7 +36,15 @@ namespace RPG.SceneManagement
 
 		#region Private Methods
 
+		IEnumerator Transition()
+		{
+			DontDestroyOnLoad(gameObject);
 
+			yield return SceneManager.LoadSceneAsync(_sceneToLoadIndex);
+
+			print("Scene loaded: " + SceneManager.GetActiveScene().name);
+			Destroy(gameObject);
+		}
 		#endregion
 	}
 }
