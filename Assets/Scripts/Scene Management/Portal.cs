@@ -10,8 +10,14 @@ namespace RPG.SceneManagement
 	{
 		#region Fields
 
+		enum DestinationIdentifier
+		{
+			A, B, C, D, E
+		}
+
 		[SerializeField] int _sceneToLoadIndex;
 		[SerializeField] Transform _spawnPoint;
+		[SerializeField] DestinationIdentifier _destination;
 
 		#endregion
 
@@ -40,6 +46,12 @@ namespace RPG.SceneManagement
 
 		IEnumerator Transition()
 		{
+			if (_sceneToLoadIndex < 0)
+			{
+				Debug.LogError("Scene to load not set!");
+				yield break;
+			}
+
 			DontDestroyOnLoad(gameObject);
 
 			yield return SceneManager.LoadSceneAsync(_sceneToLoadIndex);
@@ -62,7 +74,7 @@ namespace RPG.SceneManagement
 			foreach (Portal portal in FindObjectsOfType<Portal>())
 			{
 				if (portal == this) continue;
-
+				if (portal._destination != _destination) continue;
 				return portal;
 			}
 
