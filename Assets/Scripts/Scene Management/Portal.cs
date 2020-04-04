@@ -19,13 +19,20 @@ namespace RPG.SceneManagement
 		[SerializeField] Transform _spawnPoint;
 		[SerializeField] DestinationIdentifier _destination;
 
+		[Header("Fader Times")]
+		[SerializeField] float _fadeOutTime = 2f;
+		[SerializeField] float _fadeInTime = 1f;
+		[SerializeField] float _fadWaitTime = 0.25f;
+
+		Fader _fader;
+
 		#endregion
 
 		#region MonoBehaviour Methods
 
 		void Start()
 		{
-			
+			_fader = FindObjectOfType<Fader>();
 		}
 
 		void OnTriggerEnter(Collider other)
@@ -54,10 +61,16 @@ namespace RPG.SceneManagement
 
 			DontDestroyOnLoad(gameObject);
 
+			yield return _fader.FadeOut(_fadeOutTime);
+
 			yield return SceneManager.LoadSceneAsync(_sceneToLoadIndex);
 
 			Portal otherPortal = GetOtherPortal();
 			UpdatePlayer(otherPortal);
+
+			yield return new WaitForSeconds(_fadWaitTime);
+
+			yield return _fader.FadeIn(_fadeInTime);
 
 			Destroy(gameObject);
 		}

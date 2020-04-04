@@ -8,9 +8,6 @@ namespace RPG.SceneManagement
 	{
 		#region Fields
 
-		[SerializeField] float _fadeOutTime = 2f;
-		[SerializeField] float _fadeInTime = 0.5f;
-
 		CanvasGroup _canvasGroup;
 
 		#endregion
@@ -20,7 +17,7 @@ namespace RPG.SceneManagement
 		void Start()
 		{
 			_canvasGroup = GetComponent<CanvasGroup>();
-			StartCoroutine(FadeOutIn());
+			//StartCoroutine(FadeOutIn());
 		}
 		#endregion
 
@@ -46,13 +43,13 @@ namespace RPG.SceneManagement
 		#endregion
 
 		#region Private Methods
-		IEnumerator FadeOutIn()
-		{
-			yield return FadeOut(_fadeOutTime);
-			print("Faded Out...");
-			yield return FadeIn(_fadeInTime);
-			print("Faded back in...");
-		}
+		//IEnumerator FadeOutIn()
+		//{
+		//	yield return FadeOut(3f);
+		//	print("Faded Out...");
+		//	yield return FadeIn(1f);
+		//	print("Faded back in...");
+		//}
 		#endregion
 	}
 }
