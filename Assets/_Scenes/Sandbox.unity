@@ -854,7 +854,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 759067611}
-  m_LocalRotation: {x: -0.004928103, y: 0.98463064, z: 0.028163329, w: 0.17229362}
+  m_LocalRotation: {x: -0.0049281004, y: 0.98463064, z: 0.028163305, w: 0.17229365}
   m_LocalPosition: {x: -26.18, y: 2.5, z: 23.43}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1428,7 +1428,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1195783521}
-  m_LocalRotation: {x: 0.18386066, y: -0.04546446, z: 0.008513531, w: 0.98186344}
+  m_LocalRotation: {x: 0.18386063, y: -0.04546443, z: 0.008513524, w: 0.98186344}
   m_LocalPosition: {x: -4.54, y: 5.16, z: -1.47}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1966,6 +1966,7 @@ GameObject:
   - component: {fileID: 1603322503}
   - component: {fileID: 1603322502}
   - component: {fileID: 1603322501}
+  - component: {fileID: 1603322507}
   m_Layer: 0
   m_Name: Fader
   m_TagString: Untagged
@@ -2101,6 +2102,20 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1603322507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1603322499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 413d2122aa925fa4c9220faa763427a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fadeOutTime: 2
+  _fadeInTime: 1
 --- !u!1 &1671231937
 GameObject:
   m_ObjectHideFlags: 3
