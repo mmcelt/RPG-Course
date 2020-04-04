@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.AI;
 
 namespace RPG.SceneManagement
 {
@@ -10,6 +11,7 @@ namespace RPG.SceneManagement
 		#region Fields
 
 		[SerializeField] int _sceneToLoadIndex;
+		[SerializeField] Transform _spawnPoint;
 
 		#endregion
 
@@ -42,8 +44,29 @@ namespace RPG.SceneManagement
 
 			yield return SceneManager.LoadSceneAsync(_sceneToLoadIndex);
 
-			print("Scene loaded: " + SceneManager.GetActiveScene().name);
+			Portal otherPortal = GetOtherPortal();
+			UpdatePlayer(otherPortal);
+
 			Destroy(gameObject);
+		}
+
+		void UpdatePlayer(Portal otherPortal)
+		{
+			GameObject player = GameObject.FindGameObjectWithTag("Player");
+			player.GetComponent<NavMeshAgent>().Warp(otherPortal._spawnPoint.position);
+			player.transform.rotation = otherPortal._spawnPoint.rotation;
+		}
+
+		Portal GetOtherPortal()
+		{
+			foreach (Portal portal in FindObjectsOfType<Portal>())
+			{
+				if (portal == this) continue;
+
+				return portal;
+			}
+
+			return null;
 		}
 		#endregion
 	}
