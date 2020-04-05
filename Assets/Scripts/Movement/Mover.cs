@@ -58,17 +58,41 @@ namespace RPG.Movement
 			_navAgent.isStopped = true;
 		}
 
+		//using a struct to capture & restore state data...
+		[System.Serializable]
+		struct MoverSaveData
+		{
+			public SerializableVector3 positon;
+			public SerializableVector3 rotation;
+		}
+
 		public object CaptureState()
 		{
-			return new SerializableVector3(transform.position);
+			//using a struct to capture the data...
+			MoverSaveData data = new MoverSaveData();
+			data.positon = new SerializableVector3(transform.position);
+			data.rotation = new SerializableVector3(transform.eulerAngles);
+
+			////using a Dictionary to save multiple values of state...
+			//Dictionary<string, object> data = new Dictionary<string, object>();
+			//data["position"] = new SerializableVector3(transform.position);
+			//data["rotation"] = new SerializableVector3(transform.eulerAngles);
+
+			return data;
 		}
+			
 
 		public void RestoreState(object state)
 		{
-			SerializableVector3 position = (SerializableVector3)state;
-			//_navAgent.enabled = false;
-			_navAgent.Warp(position.ToVector());
-			//_navAgent.enabled = true;
+			//using a struct to restore the data...
+			MoverSaveData data = (MoverSaveData)state;
+			_navAgent.Warp((data.positon).ToVector());
+			transform.eulerAngles = (data.rotation).ToVector();
+
+			////using a Dictionary to restore multiple values of state...
+			//Dictionary<string, object> data = (Dictionary<string, object>)state;
+			//_navAgent.Warp(((SerializableVector3)data["position"]).ToVector());
+			//transform.eulerAngles = ((SerializableVector3)data["rotation"]).ToVector();
 		}
 		#endregion
 
