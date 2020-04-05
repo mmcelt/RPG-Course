@@ -9,15 +9,21 @@ namespace RPG.SceneManagement
 	{
 		#region Fields
 
+		[SerializeField] float _fadInTime = 0.2f;
+
 		const string _defaultSaveFile = "save";
 
 		#endregion
 
 		#region MonoBehaviour Methods
 
-		void Start()
+		IEnumerator Start()
 		{
+			Fader fader = FindObjectOfType<Fader>();
+			fader.FadeOutImmediate();
 
+			yield return GetComponent<SavingSystem>().LoadLastScene(_defaultSaveFile);
+			yield return fader.FadeIn(_fadInTime);
 		}
 
 		void Update()

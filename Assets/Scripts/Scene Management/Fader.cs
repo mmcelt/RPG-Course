@@ -23,6 +23,11 @@ namespace RPG.SceneManagement
 
 		#region Public Methods
 
+		public void FadeOutImmediate()
+		{
+			_canvasGroup.alpha = 1f;
+		}
+
 		public IEnumerator FadeOut(float time)
 		{
 			while (_canvasGroup.alpha < 1)
