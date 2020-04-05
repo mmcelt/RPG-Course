@@ -80,7 +80,7 @@ MonoBehaviour:
   _destination: 0
   _fadeOutTime: 1
   _fadeInTime: 0.5
-  _fadWaitTime: 0.25
+  _fadWaitTime: 0.5
 --- !u!1 &6058284527594501866
 GameObject:
   m_ObjectHideFlags: 0

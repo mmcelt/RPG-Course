@@ -35,20 +35,20 @@ namespace RPG.SceneManagement
 
 		#region Public Methods
 
-
-		#endregion
-
-		#region Private Methods
-
-		void Load()
+		public void Load()
 		{
 			GetComponent<SavingSystem>().Load(_defaultSaveFile);
 		}
 
-		void Save()
+		public void Save()
 		{
 			GetComponent<SavingSystem>().Save(_defaultSaveFile);
 		}
+		#endregion
+
+		#region Private Methods
+
+
 		#endregion
 	}
 }

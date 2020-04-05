@@ -30,7 +30,7 @@ namespace RPG.SceneManagement
 
 		#region MonoBehaviour Methods
 
-		void Start()
+		void Awake()
 		{
 			_fader = FindObjectOfType<Fader>();
 		}
@@ -63,7 +63,14 @@ namespace RPG.SceneManagement
 
 			yield return _fader.FadeOut(_fadeOutTime);
 
+			//save exiting level data
+			SavingWrapper wrapper = FindObjectOfType<SavingWrapper>();
+			wrapper.Save();
+
 			yield return SceneManager.LoadSceneAsync(_sceneToLoadIndex);
+
+			//load destination level data
+			wrapper.Load();
 
 			Portal otherPortal = GetOtherPortal();
 			UpdatePlayer(otherPortal);

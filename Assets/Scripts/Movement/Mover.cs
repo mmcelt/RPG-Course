@@ -23,7 +23,7 @@ namespace RPG.Movement
 
 		#region MonoBehaviour Methods
 
-		void Start()
+		void Awake()
 		{
 			_navAgent = GetComponent<NavMeshAgent>();
 			_anim = GetComponent<Animator>();
@@ -66,9 +66,9 @@ namespace RPG.Movement
 		public void RestoreState(object state)
 		{
 			SerializableVector3 position = (SerializableVector3)state;
-			_navAgent.enabled = false;
-			transform.position = position.ToVector();
-			_navAgent.enabled = true;
+			//_navAgent.enabled = false;
+			_navAgent.Warp(position.ToVector());
+			//_navAgent.enabled = true;
 		}
 		#endregion
 
