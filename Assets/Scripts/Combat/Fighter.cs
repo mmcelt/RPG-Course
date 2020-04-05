@@ -15,6 +15,8 @@ namespace RPG.Combat
 		[SerializeField] float _timeBetweenAttacks = 1f;
 
 		[SerializeField] float _weaponDamage = 5f;
+		[SerializeField] GameObject _weaponPrefab;
+		[SerializeField] Transform _handTransform;
 
 		Health _target;
 		Mover _mover;
@@ -34,6 +36,7 @@ namespace RPG.Combat
 			_mover = GetComponent<Mover>();
 			_scheduler = GetComponent<ActionScheduler>();
 			_anim = GetComponent<Animator>();
+			SpawnWeapon();
 		}
 
 		void Update()
@@ -120,6 +123,12 @@ namespace RPG.Combat
 			if (!_target) return;
 
 			_target.TakeDamage(damage);
+		}
+
+		void SpawnWeapon()
+		{
+			if(_weaponPrefab != null)
+				Instantiate(_weaponPrefab, _handTransform);
 		}
 		#endregion
 	}
