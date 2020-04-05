@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using RPG.Saving;
 
 namespace RPG.Core
 {
-	public class Health : MonoBehaviour
+	public class Health : MonoBehaviour, ISaveable
 	{
 		#region Fields
 
@@ -19,11 +20,6 @@ namespace RPG.Core
 		#region MonoBehaviour Methods
 
 		void Start()
-		{
-
-		}
-
-		void Update()
 		{
 
 		}
@@ -42,6 +38,18 @@ namespace RPG.Core
 			{
 				Die();
 			}
+		}
+
+		public object CaptureState()
+		{
+			return _healthPoints;
+		}
+
+		public void RestoreState(object state)
+		{
+			_healthPoints = (float)state;
+
+			if (_healthPoints == 0) Die();
 		}
 		#endregion
 

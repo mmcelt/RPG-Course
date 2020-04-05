@@ -24,11 +24,6 @@ namespace RPG.Core
 
 			_hasSpawned = true;
 		}
-
-		void Update()
-		{
-
-		}
 		#endregion
 
 		#region Public Methods
