@@ -17,6 +17,11 @@ namespace RPG.Cinematics
 
 		#region MonoBehaviour Methods
 
+		void Start()
+		{
+			_alreadyTriggered = true;
+		}
+
 		void OnTriggerEnter(Collider other)
 		{
 			if (!other.CompareTag("Player")) return;

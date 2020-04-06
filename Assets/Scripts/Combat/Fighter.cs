@@ -11,10 +11,8 @@ namespace RPG.Combat
 	{
 		#region Fields
 
-		[SerializeField] float _weaponRange = 2f;
 		[SerializeField] float _timeBetweenAttacks = 1f;
 
-		[SerializeField] float _weaponDamage = 5f;
 		[SerializeField] Transform _handTransform;
 		[SerializeField] Weapon _weapon;
 
@@ -91,7 +89,7 @@ namespace RPG.Combat
 
 		bool GetIsInRange()
 		{
-			return Vector3.Distance(transform.position, _target.transform.position) < _weaponRange;
+			return Vector3.Distance(transform.position, _target.transform.position) < _weapon.WeaponRange;
 		}
 
 		void AttackBehaviour()
@@ -115,7 +113,7 @@ namespace RPG.Combat
 		//Animation Event
 		void Hit()
 		{
-			DealDamage(_weaponDamage);
+			DealDamage(_weapon.WeaponDamage);
 		}
 
 		void DealDamage(float damage)

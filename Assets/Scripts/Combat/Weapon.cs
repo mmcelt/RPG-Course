@@ -9,8 +9,13 @@ namespace RPG.Combat
 	{
 		#region Fields
 
-		[SerializeField] GameObject _weaponPrefab;
+		[SerializeField] GameObject _equippedPrefab;
 		[SerializeField] AnimatorOverrideController _weaponOverrideController;
+		[SerializeField] float _weaponDamage = 5f;
+		[SerializeField] float _weaponRange = 2f;
+
+		public float WeaponDamage => _weaponDamage;
+		public float WeaponRange => _weaponRange;
 
 		#endregion
 
@@ -18,8 +23,11 @@ namespace RPG.Combat
 
 		public void Spawn(Transform handTransform,Animator animator)
 		{
-			Instantiate(_weaponPrefab, handTransform);
-			animator.runtimeAnimatorController = _weaponOverrideController;
+			if (_equippedPrefab)
+				Instantiate(_equippedPrefab, handTransform);
+
+			if (_weaponOverrideController)
+				animator.runtimeAnimatorController = _weaponOverrideController;
 		}
 		#endregion
 

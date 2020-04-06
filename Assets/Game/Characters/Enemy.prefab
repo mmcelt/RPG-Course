@@ -43,6 +43,7 @@ MonoBehaviour:
   _patrolPath: {fileID: 0}
   _waypointTolerance: 0.5
   _waypointWaitTime: 2
+  _patrolSpeedFraction: 0.2
 --- !u!1001 &1184358267764122507
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -100,6 +101,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30cf93deff988e74e88a144bd2127c18, type: 3}
+--- !u!4 &1184358267764528261 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 423694, guid: 30cf93deff988e74e88a144bd2127c18,
+    type: 3}
+  m_PrefabInstance: {fileID: 1184358267764122507}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1408822937268732199
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -172,20 +179,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8692253784873843405, guid: 1f05f99aba90fc541a821314523c6388,
+    - target: {fileID: 3426932825221148400, guid: 1f05f99aba90fc541a821314523c6388,
         type: 3}
-      propertyPath: _healthPoints
-      value: 40
+      propertyPath: _weaponDamage
+      value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 3426932825221148400, guid: 1f05f99aba90fc541a821314523c6388,
+        type: 3}
+      propertyPath: _weapon
+      value: 
+      objectReference: {fileID: 11400000, guid: dfb8855749dc4b043a82c066508337f4,
+        type: 2}
+    - target: {fileID: 3426932825221148400, guid: 1f05f99aba90fc541a821314523c6388,
+        type: 3}
+      propertyPath: _handTransform
+      value: 
+      objectReference: {fileID: 1184358267764528261}
     - target: {fileID: 8617730693470501185, guid: 1f05f99aba90fc541a821314523c6388,
         type: 3}
       propertyPath: m_Speed
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 3426932825221148400, guid: 1f05f99aba90fc541a821314523c6388,
+    - target: {fileID: 8692253784873843405, guid: 1f05f99aba90fc541a821314523c6388,
         type: 3}
-      propertyPath: _weaponDamage
-      value: 10
+      propertyPath: _healthPoints
+      value: 40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f05f99aba90fc541a821314523c6388, type: 3}
