@@ -14,7 +14,7 @@ namespace RPG.Combat
 		[SerializeField] float _timeBetweenAttacks = 1f;
 
 		[SerializeField] Transform _handTransform;
-		[SerializeField] Weapon _weapon;
+		[SerializeField] Weapon _defaultWeapon;
 
 		Health _target;
 		Mover _mover;
@@ -22,6 +22,7 @@ namespace RPG.Combat
 		Animator _anim;
 
 		float _timeSinceLastAttack;
+		Weapon _currentWeapon;
 
 		#endregion
 
@@ -34,7 +35,8 @@ namespace RPG.Combat
 			_mover = GetComponent<Mover>();
 			_scheduler = GetComponent<ActionScheduler>();
 			_anim = GetComponent<Animator>();
-			SpawnWeapon();
+			_currentWeapon = _defaultWeapon;
+			EquipWeapon(_currentWeapon);
 		}
 
 		void Update()
@@ -89,7 +91,7 @@ namespace RPG.Combat
 
 		bool GetIsInRange()
 		{
-			return Vector3.Distance(transform.position, _target.transform.position) < _weapon.WeaponRange;
+			return Vector3.Distance(transform.position, _target.transform.position) < _currentWeapon.WeaponRange;
 		}
 
 		void AttackBehaviour()
@@ -113,7 +115,7 @@ namespace RPG.Combat
 		//Animation Event
 		void Hit()
 		{
-			DealDamage(_weapon.WeaponDamage);
+			DealDamage(_currentWeapon.WeaponDamage);
 		}
 
 		void DealDamage(float damage)
@@ -123,11 +125,11 @@ namespace RPG.Combat
 			_target.TakeDamage(damage);
 		}
 
-		void SpawnWeapon()
+		public void EquipWeapon(Weapon weapon)
 		{
-			if (_weapon == null) return;
-
-			_weapon.Spawn(_handTransform, _anim);
+			if (weapon == null) return;
+			_currentWeapon = weapon;
+			weapon.Spawn(_handTransform, _anim);
 		}
 		#endregion
 	}
