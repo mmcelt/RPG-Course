@@ -13,6 +13,7 @@ namespace RPG.Combat
 		[SerializeField] AnimatorOverrideController _weaponOverrideController;
 		[SerializeField] float _weaponDamage = 5f;
 		[SerializeField] float _weaponRange = 2f;
+		[SerializeField] bool _isRightHanded = true;
 
 		public float WeaponDamage => _weaponDamage;
 		public float WeaponRange => _weaponRange;
@@ -21,10 +22,16 @@ namespace RPG.Combat
 
 		#region Public Methods
 
-		public void Spawn(Transform handTransform,Animator animator)
+		public void Spawn(Transform rightHand, Transform lefthand, Animator animator)
 		{
 			if (_equippedPrefab)
+			{
+				Transform handTransform;
+
+				handTransform = _isRightHanded ? rightHand : lefthand;
+
 				Instantiate(_equippedPrefab, handTransform);
+			}
 
 			if (_weaponOverrideController)
 				animator.runtimeAnimatorController = _weaponOverrideController;

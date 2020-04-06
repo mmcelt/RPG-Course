@@ -13,7 +13,8 @@ namespace RPG.Combat
 
 		[SerializeField] float _timeBetweenAttacks = 1f;
 
-		[SerializeField] Transform _handTransform;
+		[SerializeField] Transform _rightHandTransform;
+		[SerializeField] Transform _lefttHandTransform;
 		[SerializeField] Weapon _defaultWeapon;
 
 		Health _target;
@@ -129,7 +130,7 @@ namespace RPG.Combat
 		{
 			if (weapon == null) return;
 			_currentWeapon = weapon;
-			weapon.Spawn(_handTransform, _anim);
+			weapon.Spawn(_rightHandTransform, _lefttHandTransform, _anim);
 		}
 		#endregion
 	}
