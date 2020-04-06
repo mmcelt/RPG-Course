@@ -15,9 +15,8 @@ namespace RPG.Combat
 		[SerializeField] float _timeBetweenAttacks = 1f;
 
 		[SerializeField] float _weaponDamage = 5f;
-		[SerializeField] GameObject _weaponPrefab;
 		[SerializeField] Transform _handTransform;
-		[SerializeField] AnimatorOverrideController _weaponOverrideController;
+		[SerializeField] Weapon _weapon;
 
 		Health _target;
 		Mover _mover;
@@ -128,11 +127,9 @@ namespace RPG.Combat
 
 		void SpawnWeapon()
 		{
-			if(_weaponPrefab != null)
-			{
-				Instantiate(_weaponPrefab, _handTransform);
-				_anim.runtimeAnimatorController = _weaponOverrideController;
-			}
+			if (_weapon == null) return;
+
+			_weapon.Spawn(_handTransform, _anim);
 		}
 		#endregion
 	}
