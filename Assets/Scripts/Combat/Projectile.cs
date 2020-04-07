@@ -9,8 +9,11 @@ namespace RPG.Combat
 	{
 		#region Fields
 
-		[SerializeField] Transform _target;
 		[SerializeField] float _moveSpeed = 10f;
+
+		Health _target;
+
+		bool _hitTarget;
 
 		#endregion
 
@@ -18,21 +21,32 @@ namespace RPG.Combat
 
 		void Start()
 		{
+			if (_target == null) return;
 
+			transform.LookAt(GetAimPoint());
 		}
 
 		void Update()
 		{
 			if (_target == null) return;
 
-			transform.LookAt(GetAimPoint());
-			transform.Translate(Vector3.forward * _moveSpeed * Time.deltaTime);
+			Move();
+		}
+
+		void OnTriggerEnter(Collider other)
+		{
+			_hitTarget = true;
+			Destroy(gameObject, 0.2f);
+			//do damage...
 		}
 		#endregion
 
 		#region Public Methods
 
-
+		public void SetTarget(Health target)
+		{
+			_target = target;
+		}
 		#endregion
 
 		#region Private Methods
@@ -42,9 +56,15 @@ namespace RPG.Combat
 			CapsuleCollider aimPoint = _target.GetComponent<CapsuleCollider>();
 
 			if (aimPoint == null)
-				return _target.position;
+				return _target.transform.position;
 
-			return _target.position + Vector3.up * aimPoint.height / 1.4f;
+			return _target.transform.position + Vector3.up * aimPoint.height / 1.7f;
+		}
+
+		void Move()
+		{
+			if(!_hitTarget)
+				transform.Translate(Vector3.forward * _moveSpeed * Time.deltaTime);
 		}
 		#endregion
 	}

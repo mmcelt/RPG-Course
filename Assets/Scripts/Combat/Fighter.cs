@@ -113,10 +113,20 @@ namespace RPG.Combat
 			_anim.SetTrigger("attack");
 		}
 
-		//Animation Event
+		//Animation Events
 		void Hit()
 		{
-			DealDamage(_currentWeapon.WeaponDamage);
+			if (_target == null) return;
+
+			if (_currentWeapon.HasProjectile())
+				_currentWeapon.LaunchProjectile(_rightHandTransform, _lefttHandTransform, _target);
+			else
+				DealDamage(_currentWeapon.WeaponDamage);
+		}
+
+		void Shoot()
+		{
+			Hit();
 		}
 
 		void DealDamage(float damage)
