@@ -12,6 +12,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Red Arrow
       objectReference: {fileID: 0}
+    - target: {fileID: 5195838761274341169, guid: b3ead7e2d01cd9c4c81f5a81a1e7089e,
+        type: 3}
+      propertyPath: _isHoming
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1817152836577168283, guid: b3ead7e2d01cd9c4c81f5a81a1e7089e,
         type: 3}
       propertyPath: m_LocalPosition.x

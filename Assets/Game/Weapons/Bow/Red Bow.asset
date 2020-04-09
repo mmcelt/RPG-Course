@@ -18,6 +18,6 @@ MonoBehaviour:
     type: 2}
   _weaponDamage: 10
   _weaponRange: 6
-  _isRightHanded: 1
+  _isRightHanded: 0
   _projectile: {fileID: 2658230261093161748, guid: a299d5734e670af46963aca50b0ef782,
     type: 3}

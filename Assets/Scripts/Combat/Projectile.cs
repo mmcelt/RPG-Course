@@ -10,6 +10,7 @@ namespace RPG.Combat
 		#region Fields
 
 		[SerializeField] float _moveSpeed = 10f;
+		[SerializeField] bool _isHoming;
 
 		float _damage;
 
@@ -30,12 +31,17 @@ namespace RPG.Combat
 		{
 			if (_target == null) return;
 
-			Move();
+			if (_isHoming && !_target.IsDead)
+				transform.LookAt(GetAimPoint());
+
+			transform.Translate(Vector3.forward * _moveSpeed * Time.deltaTime);
 		}
 
 		void OnTriggerEnter(Collider other)
 		{
 			if (other.GetComponent<Health>() != _target) return;
+
+			if (_target.IsDead) return;	//stops projectiles in flight interacting with the dead
 
 			_target.TakeDamage(_damage);
 
@@ -62,11 +68,6 @@ namespace RPG.Combat
 				return _target.transform.position;
 
 			return _target.transform.position + Vector3.up * aimPoint.height / 1.7f;
-		}
-
-		void Move()
-		{
-			transform.Translate(Vector3.forward * _moveSpeed * Time.deltaTime);
 		}
 		#endregion
 	}
