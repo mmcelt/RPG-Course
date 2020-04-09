@@ -11,9 +11,9 @@ namespace RPG.Combat
 
 		[SerializeField] float _moveSpeed = 10f;
 
-		Health _target;
+		float _damage;
 
-		bool _hitTarget;
+		Health _target;
 
 		#endregion
 
@@ -35,17 +35,20 @@ namespace RPG.Combat
 
 		void OnTriggerEnter(Collider other)
 		{
-			_hitTarget = true;
-			Destroy(gameObject, 0.2f);
-			//do damage...
+			if (other.GetComponent<Health>() != _target) return;
+
+			_target.TakeDamage(_damage);
+
+			Destroy(gameObject);
 		}
 		#endregion
 
 		#region Public Methods
 
-		public void SetTarget(Health target)
+		public void SetTarget(Health target, float damage)
 		{
 			_target = target;
+			_damage = damage;
 		}
 		#endregion
 
@@ -63,8 +66,7 @@ namespace RPG.Combat
 
 		void Move()
 		{
-			if(!_hitTarget)
-				transform.Translate(Vector3.forward * _moveSpeed * Time.deltaTime);
+			transform.Translate(Vector3.forward * _moveSpeed * Time.deltaTime);
 		}
 		#endregion
 	}
