@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b256b256a2e2f644bc669759a505ff9, type: 3}
-  m_Name: Blue Bow
+  m_Name: Fireball
   m_EditorClassIdentifier: 
-  _equippedPrefab: {fileID: 1340215138605323824, guid: c98e2dca5ea045345ac5787720c1c062,
+  _equippedPrefab: {fileID: 1340215138605323824, guid: 2cc20ee30607f2a4bb5a4bca44fcc0e3,
     type: 3}
-  _weaponOverrideController: {fileID: 22100000, guid: b8af7b8150728c4459bf96b0780f49fd,
+  _weaponOverrideController: {fileID: 22100000, guid: 81eb552328ee30944b05ca4ad1166d7f,
     type: 2}
   _weaponDamage: 10
-  _weaponRange: 7
+  _weaponRange: 20
   _isRightHanded: 0
-  _projectile: {fileID: 4274679922362909574, guid: 3e1f26f3bb6e4d84f9739f0a04ff9daf,
+  _projectile: {fileID: 5195838761274341169, guid: d6b0caca5d3798d41b56eed42b3a915b,
     type: 3}
