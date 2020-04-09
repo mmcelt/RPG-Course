@@ -20,17 +20,22 @@ namespace RPG.Combat
 		public float WeaponDamage => _weaponDamage;
 		public float WeaponRange => _weaponRange;
 
+		const string _weaponName = "Weapon";
+
 		#endregion
 
 		#region Public Methods
 
 		public void Spawn(Transform rightHand, Transform lefthand, Animator animator)
 		{
+			DestroyOldWeapon(rightHand, lefthand);
+
 			if (_equippedPrefab)
 			{
 				Transform handTransform = GetTransform(rightHand, lefthand);
 
-				Instantiate(_equippedPrefab, handTransform);
+				GameObject weapon = Instantiate(_equippedPrefab, handTransform);
+				weapon.name = _weaponName;
 			}
 
 			if (_weaponOverrideController)
@@ -54,6 +59,20 @@ namespace RPG.Combat
 		Transform GetTransform(Transform rightHand, Transform lefthand)
 		{
 			return _isRightHanded ? rightHand : lefthand;
+		}
+
+		void DestroyOldWeapon(Transform rightHand, Transform leftHand)
+		{
+			Transform oldWeapon = rightHand.Find(_weaponName);
+
+			if (oldWeapon == null)
+				oldWeapon = leftHand.Find(_weaponName);
+
+			if (oldWeapon == null) return;
+
+			oldWeapon.name = "DESTOYING";
+
+			Destroy(oldWeapon.gameObject);
 		}
 		#endregion
 	}
