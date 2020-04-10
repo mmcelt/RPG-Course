@@ -11,6 +11,7 @@ namespace RPG.Combat
 
 		[SerializeField] float _moveSpeed = 10f;
 		[SerializeField] bool _isHoming;
+		[SerializeField] GameObject _hitEffect;
 
 		float _damage;
 
@@ -44,6 +45,9 @@ namespace RPG.Combat
 			if (_target.IsDead) return;	//stops projectiles in flight interacting with the dead
 
 			_target.TakeDamage(_damage);
+
+			if (_hitEffect != null)
+				Instantiate(_hitEffect, GetAimPoint(), transform.rotation);
 
 			Destroy(gameObject);
 		}
