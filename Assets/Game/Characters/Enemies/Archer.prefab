@@ -78,6 +78,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: b295ade5108f1b0469f246b3f6ba029d,
         type: 2}
+    - target: {fileID: 4324526292582920151, guid: 4471b5d18c0d89b47a1dd3233ef8ac46,
+        type: 3}
+      propertyPath: _defaultWeaponName
+      value: Red Bow
+      objectReference: {fileID: 0}
     - target: {fileID: 1184358267752726743, guid: 4471b5d18c0d89b47a1dd3233ef8ac46,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
