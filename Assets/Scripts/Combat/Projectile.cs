@@ -12,6 +12,9 @@ namespace RPG.Combat
 		[SerializeField] float _moveSpeed = 10f;
 		[SerializeField] bool _isHoming;
 		[SerializeField] GameObject _hitEffect;
+		[SerializeField] float _maxLifeTime = 4f;
+		[SerializeField] GameObject[] _destroyOnImpact;
+		[SerializeField] float _lifeAfterImpact = 0.5f;
 
 		float _damage;
 
@@ -26,6 +29,8 @@ namespace RPG.Combat
 			if (_target == null) return;
 
 			transform.LookAt(GetAimPoint());
+
+			Destroy(gameObject, _maxLifeTime);
 		}
 
 		void Update()
@@ -46,10 +51,20 @@ namespace RPG.Combat
 
 			_target.TakeDamage(_damage);
 
+			_moveSpeed = 2;
+
 			if (_hitEffect != null)
 				Instantiate(_hitEffect, GetAimPoint(), transform.rotation);
 
-			Destroy(gameObject);
+			if (_destroyOnImpact.Length > 0)
+			{
+				foreach (GameObject part in _destroyOnImpact)
+				{
+					Destroy(part);
+				}
+			}
+
+			Destroy(gameObject, _lifeAfterImpact);
 		}
 		#endregion
 

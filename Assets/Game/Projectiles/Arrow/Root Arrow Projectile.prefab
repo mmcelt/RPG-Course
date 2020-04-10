@@ -208,6 +208,10 @@ MonoBehaviour:
   _isHoming: 0
   _hitEffect: {fileID: 8144475272512437056, guid: f2a454fe7f31def4a875ba74a9c03edc,
     type: 3}
+  _maxLifeTime: 5
+  _destroyOnImpact:
+  - {fileID: 6085202751559402451}
+  _lifeAfterImpact: 0.2
 --- !u!1001 &6086367394701198381
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -215,6 +219,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1817152836577168283}
     m_Modifications:
+    - target: {fileID: 1659504181823486, guid: c7f49c6920d49ba468b083941d79f2c0, type: 3}
+      propertyPath: m_Name
+      value: Simple Arrow
+      objectReference: {fileID: 0}
     - target: {fileID: 4750687242688692, guid: c7f49c6920d49ba468b083941d79f2c0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -259,12 +267,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1659504181823486, guid: c7f49c6920d49ba468b083941d79f2c0, type: 3}
-      propertyPath: m_Name
-      value: Simple Arrow
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7f49c6920d49ba468b083941d79f2c0, type: 3}
+--- !u!1 &6085202751559402451 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1659504181823486, guid: c7f49c6920d49ba468b083941d79f2c0,
+    type: 3}
+  m_PrefabInstance: {fileID: 6086367394701198381}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6082109508247968921 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4750687242688692, guid: c7f49c6920d49ba468b083941d79f2c0,
