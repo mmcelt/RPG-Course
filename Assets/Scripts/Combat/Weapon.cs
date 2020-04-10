@@ -11,7 +11,7 @@ namespace RPG.Combat
 		#region Fields
 
 		[SerializeField] GameObject _equippedPrefab;
-		[SerializeField] AnimatorOverrideController _weaponOverrideController;
+		[SerializeField] AnimatorOverrideController _animatorOverride;
 		[SerializeField] float _weaponDamage = 5f;
 		[SerializeField] float _weaponRange = 2f;
 		[SerializeField] bool _isRightHanded = true;
@@ -38,8 +38,17 @@ namespace RPG.Combat
 				weapon.name = _weaponName;
 			}
 
-			if (_weaponOverrideController)
-				animator.runtimeAnimatorController = _weaponOverrideController;
+			var overrideController = animator.runtimeAnimatorController as AnimatorOverrideController;
+
+			if (_animatorOverride)
+			{
+				animator.runtimeAnimatorController = _animatorOverride;
+
+			}
+			else if (overrideController)
+			{
+				animator.runtimeAnimatorController = overrideController;
+			}
 		}
 
 		public bool HasProjectile()
