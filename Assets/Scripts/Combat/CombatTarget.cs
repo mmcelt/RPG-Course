@@ -14,16 +14,6 @@ namespace RPG.Combat
 		#endregion
 
 		#region MonoBehaviour Methods
-
-		void Start()
-		{
-
-		}
-
-		void Update()
-		{
-
-		}
 		#endregion
 
 		#region Public Methods

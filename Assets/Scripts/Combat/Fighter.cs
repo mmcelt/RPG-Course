@@ -4,10 +4,11 @@ using UnityEngine;
 using UnityEngine.AI;
 using RPG.Movement;
 using RPG.Core;
+using RPG.Saving;
 
 namespace RPG.Combat
 {
-	public class Fighter : MonoBehaviour, IAction
+	public class Fighter : MonoBehaviour, IAction, ISaveable
 	{
 		#region Fields
 
@@ -16,7 +17,6 @@ namespace RPG.Combat
 		[SerializeField] Transform _rightHandTransform;
 		[SerializeField] Transform _lefttHandTransform;
 		[SerializeField] Weapon _defaultWeapon;
-		[SerializeField] string _defaultWeaponName = "Unarmed";
 
 		Health _target;
 		Mover _mover;
@@ -37,10 +37,10 @@ namespace RPG.Combat
 			_mover = GetComponent<Mover>();
 			_scheduler = GetComponent<ActionScheduler>();
 			_anim = GetComponent<Animator>();
-			_currentWeapon = _defaultWeapon;
+			//_currentWeapon = _defaultWeapon;
 
-			Weapon weapon = Resources.Load<Weapon>(_defaultWeaponName);
-			EquipWeapon(weapon);
+			if (!_currentWeapon)
+				EquipWeapon(_defaultWeapon);
 		}
 
 		void Update()
@@ -88,6 +88,28 @@ namespace RPG.Combat
 
 			Health targetHealth = combatTarget.GetComponent<Health>();
 			return targetHealth != null && !targetHealth.IsDead;
+		}
+
+		public void EquipWeapon(Weapon weapon)
+		{
+			if (weapon == null) return;
+			_currentWeapon = weapon;
+			weapon.Spawn(_rightHandTransform, _lefttHandTransform, _anim);
+		}
+
+		public object CaptureState()
+		{
+			//if(_currentWeapon)
+				return _currentWeapon.name;
+
+			//return _defaultWeapon;
+		}
+
+		public void RestoreState(object state)
+		{
+			string weaponName = (string)state;
+			Weapon weapon = Resources.Load<Weapon>(weaponName);
+			EquipWeapon(weapon);
 		}
 		#endregion
 
@@ -137,13 +159,6 @@ namespace RPG.Combat
 			if (!_target) return;
 
 			_target.TakeDamage(damage);
-		}
-
-		public void EquipWeapon(Weapon weapon)
-		{
-			if (weapon == null) return;
-			_currentWeapon = weapon;
-			weapon.Spawn(_rightHandTransform, _lefttHandTransform, _anim);
 		}
 		#endregion
 	}

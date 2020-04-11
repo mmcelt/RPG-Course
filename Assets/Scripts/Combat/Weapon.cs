@@ -47,7 +47,7 @@ namespace RPG.Combat
 			}
 			else if (overrideController)
 			{
-				animator.runtimeAnimatorController = overrideController;
+				animator.runtimeAnimatorController = overrideController.runtimeAnimatorController;
 			}
 		}
 
